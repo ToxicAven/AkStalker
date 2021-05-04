@@ -1,0 +1,22 @@
+{
+  "name": "akstalker",
+  "version": "1.0.0",
+  "repository": "https://github.com/ToxicAven/AkStalker",
+  "description": "Mineflayer bot for hunting Akrz",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "keywords": [
+    "minecraft-bot",
+    "minecraft",
+    "bot"
+  ],
+  "author": "ToxicAven",
+  "license": "GPL-2.0",
+  "dependencies": {
+    "discord-webhook-node": "^1.1.8",
+    "dotenv": "^8.2.0",
+    "mineflayer": "^3.6.0"
+  }
+}
