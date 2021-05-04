@@ -4,6 +4,7 @@ const { Webhook, MessageBuilder } = require('discord-webhook-node');
 const afk= require('./afk')
 const hook = new Webhook(process.env.WEBHOOK);
 const player128 = "https://minotar.net/helm/"+ process.env.HUNTED + "/128.png";
+const akrz128 = "https://minotar.net/helm/Akrz/128.png"
 hook.setUsername('AkStalker');
 hook.setAvatar(player128);
 
@@ -49,9 +50,9 @@ function bindEvents(bot) {
 }
 
 const embed = new MessageBuilder()
-.setTitle(process.env.HUNTED + ' Located!')
-.setAuthor('AkStalker', player128)
-.addField(process.env.HUNTED + ' Spotted on', process.env.SERVER)
+.setTitle(process.env.HUNTED + ' located!')
+.setAuthor('AkStalker', akrz128)
+.addField(process.env.HUNTED + ' spotted on', process.env.SERVER)
 .setColor('#ff00ff')
 .setThumbnail(player128)
 .setTimestamp();
