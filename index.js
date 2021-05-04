@@ -1,10 +1,11 @@
 require('dotenv').config()
 var mineflayer = require('mineflayer');
-const { Webhook } = require('discord-webhook-node');
+const { Webhook, MessageBuilder } = require('discord-webhook-node');
+const afk= require('./afk')
 const hook = new Webhook(process.env.WEBHOOK);
-const IMAGE_URL = 'https://homepages.cae.wisc.edu/~ece533/images/airplane.png';
+const player128 = "https://minotar.net/helm/"+ process.env.HUNTED + "/128.png";
 hook.setUsername('AkStalker');
-hook.setAvatar(IMAGE_URL);
+hook.setAvatar(player128);
 
 var options = {
     host: process.env.SERVER,
@@ -15,15 +16,22 @@ var options = {
 };
 
 var bot = mineflayer.createBot(options);
+bot.loadPlugin(afk.afk)
 bindEvents(bot);
 
 function bindEvents(bot) {
 
-  bot.on('playerJoined', function(player) {
-    if (player.username == "97g") {
-        hook.send(embed)
-    }
-  });
+    bot.afk.start()
+
+    bot.on('spawn', function() {
+          console.log(`\n------------\nAkStalker Connected\n------------`)
+      });
+
+    bot.on('playerJoined', function(player) {
+        if (player.username == process.env.HUNTED) {
+            hook.send(embed)
+        }
+     });
 
     bot.on('error', function(err) {
         console.log('Error attempting to reconnect: ' + err.errno + '.');
@@ -41,11 +49,11 @@ function bindEvents(bot) {
 }
 
 const embed = new MessageBuilder()
-.setTitle('Akrz Located!')
-.setAuthor('AkStalker', 'https://minotar.net/helm/Akrz/128.png')
-.addField('Ak Spotted on', process.env.SERVER)
+.setTitle(process.env.HUNTED + ' Located!')
+.setAuthor('AkStalker', player128)
+.addField(process.env.HUNTED + ' Spotted on', process.env.SERVER)
 .setColor('#ff00ff')
-.setThumbnail('https://minotar.net/helm/Akrz/128.png')
+.setThumbnail(player128)
 .setTimestamp();
 
 function relog() {
